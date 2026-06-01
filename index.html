@@ -116,7 +116,6 @@
             padding: 2px;
         }
 
-        /* โซนกล่องข้อความหมายเหตุ */
         .note-section {
             margin-top: 35px;
             padding: 15px;
@@ -143,7 +142,8 @@
     
     <div class="date-section">
         <label for="reg-date">วันที่สมัคร:</label>
-        <input type="date" id="reg-date" style="width: auto; display: inline-block;">
+        <!-- เปลี่ยนอินพุตเป็นข้อความธรรมดา เพื่อรับวันที่อัตโนมัติจากระบบ -->
+        <input type="text" id="reg-date" style="width: auto; display: inline-block; border: none; font-weight: bold;" readonly>
     </div>
 
     <form id="militaryForm" onsubmit="return false;">
@@ -248,7 +248,6 @@
             </div>
         </div>
 
-        <!-- ⚠️ กล่องหมายเหตุแยกเป็นข้อๆ ชัดเจนตามสั่งครับ -->
         <div class="note-section">
             <span>คำแนะนำการส่งเอกสาร:</span>
             <ul>
@@ -258,6 +257,20 @@
         </div>
     </form>
 </div>
+
+<script>
+    // สคริปต์ตรวจเช็กและบันทึกวันที่ปัจจุบันลงในฟอร์มอัตโนมัติเมื่อเปิดหน้าเว็บ
+    window.onload = function() {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // เดือนเริ่มต้นที่ 0
+        const yyyy = today.getFullYear();
+        
+        // จัดรูปแบบเป็น วัน/เดือน/ปีคริสต์ศักราช (สามารถเปลี่ยนเป็นปี พ.ศ. โดยบวก 543 ได้ครับ)
+        const formattedDate = dd + '/' + mm + '/' + yyyy;
+        document.getElementById('reg-date').value = formattedDate;
+    };
+</script>
 
 </body>
 </html>
